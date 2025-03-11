@@ -7,7 +7,14 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CLIENT_URL || "http://localhost:5173", 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow cookies to be sent
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/users", require("./routes/authRoutes"));
